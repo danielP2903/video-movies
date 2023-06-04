@@ -1,0 +1,17 @@
+.container-button {
+  display: flex;
+  justify-content: end;
+}
+
+
+@media (max-width: 768px) {
+  .custom-button {
+    z-index: 999;
+    position: fixed;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 100%;
+  }
+}
+

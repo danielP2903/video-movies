@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+@import './assets/custom-variables.scss';
+
+body {
+  background-color: $body-bg;
+}
+.btn-primary-color{
+  background-color: $primary-color;
+  color: #ffff;
+}
+.btn-cancel {
+  background-color: #F8F9FA;
+  color: $primary-color;
+}
+.btn-primary-color:hover{
+  background-color: $hover-button;
+  color:$primary-color ;
+}
+.btn-cancel:hover {
+  background-color: $primary-color;
+  color:  #ffff;
+}

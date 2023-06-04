@@ -1,0 +1,29 @@
+<div class="d-flex">
+  <form class="form-inline my-2 my-lg-0">
+    <div class="d-flex text-light p-4 gap-3">
+      <div >
+        <label for="inputState" class="form-label">Nombre</label>
+        <input
+          #txtBuscar
+          name="nameMovie"
+          class="form-control "
+          placeholder="Buscar Pelicula"
+          aria-label="Search"
+          [(ngModel)]="nameMovie"
+          (keyup)="emitFilter()"
+        />
+      </div >
+      <div>
+          <label for="inputState" class="form-label">Categoria</label>
+          <select id="inputState"class="form-select" name="category" aria-placeholder="hola" [(ngModel)]="categorySelected" (change)="emitFilter()">
+            <option value="" disabled selected>Elige una categoría</option>
+            <option [disabled]="categories.length === 0"  selected *ngFor="let category of categories" [value]="category.id" >{{category.name}}</option>
+          </select>
+          <div *ngIf="categorySelected" class="container-clean" (click)="clearSelect()">
+            <i class="bi bi-x text-dark"></i>
+          </div>
+
+      </div>
+    </div>
+  </form>
+</div>

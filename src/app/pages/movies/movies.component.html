@@ -1,0 +1,11 @@
+<app-searcher (changeFilter)="getFilter($event)"></app-searcher>
+
+<!-- Botón arriba de la tabla en versión de escritorio -->
+    <div class="d-flex  justify-content-between p-4">
+      <h1 class="text-light">Listado de peliculas</h1>
+      <button class="btn btn-primary-color btn-lg custom-button bi bi-bag-plus-fill" (click)="addMovie()">
+        Añadir Pelicula</button>
+    </div>
+<div class="table-responsive">
+  <app-movies-item [movies]="moviesEmit"></app-movies-item>
+</div>
