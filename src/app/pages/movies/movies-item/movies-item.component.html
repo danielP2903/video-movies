@@ -2,6 +2,7 @@
   <div class="row">
     <!-- Vista de escritorio -->
     <div class="col-md-12 d-none d-md-block">
+
       <table class="table table-striped">
         <thead>
           <tr>
@@ -23,9 +24,14 @@
         </tbody>
       </table>
     </div>
-
+    <div *ngIf="movies?.length === 0" class="text-light bold">
+      <p>NO SE ENCUENTRAN RESULTADOS...</p>
+    </div>
     <!-- Vista mobile -->
     <div class="col-12 d-md-none">
+      <div *ngIf="!movies">
+        <p>NO SE ENCUENTRAN RESULTADOS...</p>
+      </div>
       <div class="row">
         <div class="col-12" *ngFor="let movie of movies trackBy: getMovieName">
           <div class="card mb-4">

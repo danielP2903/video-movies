@@ -22,4 +22,21 @@ export class MoviesService extends GenericServiceService<IMovies> {
   getMoviesChange(){
     return this.$moviesChange.asObservable();
   }
+
+  saveItem(data:IMovies){
+    if(localStorage.getItem('movies') != null) {
+      const movies = JSON.parse(localStorage.getItem('movies') ?? '');
+      const hasDuplicated = movies.find((movie:IMovies) => {
+        movie.name.toLowerCase();
+        data.name.toLowerCase();
+        return movie.name === data.name
+
+      })
+      if(hasDuplicated){return {error:'Ha ocurrido un error, película ya existe en el inventario'}}
+      movies.push(data);
+      localStorage.setItem('movies', JSON.stringify(movies));
+      return movies;
+    }
+    return {error:'Local Storage Vacio'}
+  }
 }

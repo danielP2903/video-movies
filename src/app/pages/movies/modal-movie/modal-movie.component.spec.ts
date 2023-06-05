@@ -88,7 +88,7 @@ describe('ModalMovieComponent', () => {
     component.ngOnInit();
     expect(component.categories.length).toBeGreaterThan(0);
   })
-  it('save Movie',() => {
+  it('save Movie', () => {
     const formMovie = {
       controls: {
         name: { value: 'Harry Potter y el Caliz de Fuego' },
@@ -101,16 +101,30 @@ describe('ModalMovieComponent', () => {
 
     component.formMovie = formMovie as unknown as FormGroup;
 
-    let storedMovies
-    if(localStorage.getItem('movies') != null) {
+    let storedMovies;
+    if (localStorage.getItem('movies') != null) {
       storedMovies = JSON.parse(localStorage.getItem('movies') ?? '');
     }
+
     const movieService = TestBed.inject(MoviesService);
     const saveItemSpy = spyOn(movieService, 'saveItem').and.returnValue(storedMovies);
+    const showSuccessSpy = spyOn(component, 'showSuccess');
+    const setMoviesChangeSpy = spyOn(movieService, 'setMoviesChange');
+    const closeModalSpy = spyOn(component, 'closeModal');
 
     component.saveMovie();
 
-    expect(saveItemSpy).toHaveBeenCalled();
+    expect(saveItemSpy).toHaveBeenCalledWith({
+      name: 'Harry Potter y el Caliz de Fuego',
+      category: component.categorySelected?.name,
+      releaseYear: 2005,
+      price: 9.99,
+      availableInventory: 5
+    });
 
-  })
+    expect(showSuccessSpy).toHaveBeenCalled();
+    expect(setMoviesChangeSpy).toHaveBeenCalledWith(storedMovies);
+    expect(closeModalSpy).toHaveBeenCalled();
+  });
+
 });

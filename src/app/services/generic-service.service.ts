@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoints } from '../common/constants/endpoints';
+import { IMovies } from '../common/interfaces/movie';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,4 @@ export class GenericServiceService<T> {
     return this.httpClient.get<any[]>(this.url.concat(Endpoints.ALL));
   }
 
-  saveItem(data:T){
-    if(localStorage.getItem('movies') != null) {
-      const movies = JSON.parse(localStorage.getItem('movies') ?? '');
-      movies.push(data);
-      localStorage.setItem('movies', JSON.stringify(movies));
-      return movies;
-    }
-  }
 }

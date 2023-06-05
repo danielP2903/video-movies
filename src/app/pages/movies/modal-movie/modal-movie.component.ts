@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MESSAGES } from 'src/app/common/constants/messages';
 import { getErrorMessage } from 'src/app/common/functions/validateErrorsForm';
 import { ICategory } from 'src/app/common/interfaces/category';
+import { IMessages } from 'src/app/common/interfaces/messages';
 import { IMovies } from 'src/app/common/interfaces/movie';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { MoviesService } from 'src/app/services/movies/movies.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-modal-movie',
@@ -15,13 +18,16 @@ import { MoviesService } from 'src/app/services/movies/movies.service';
 export class ModalMovieComponent implements OnInit {
   public formMovie!:FormGroup;
   public categories!:ICategory[];
-  private categorySelected?:ICategory;
+  public categorySelected?:ICategory;
+  public messages!:IMessages[];
+
 
   constructor(private readonly movieService:MoviesService,
               private readonly categoryService:CategoryService,
               private readonly activeModal:NgbActiveModal,
+              public toastService: ToastService,
               private readonly form: FormBuilder){
-
+                this.messages = MESSAGES;
 
   }
   ngOnInit(): void {
@@ -70,6 +76,11 @@ export class ModalMovieComponent implements OnInit {
     }
 
     const movies = this.movieService.saveItem(data);
+    if(movies?.error){
+      this.showError(movies.error);
+      return;
+    }
+    this.showSuccess();
     this.movieService.setMoviesChange(movies);
     this.closeModal();
   }
@@ -78,4 +89,15 @@ export class ModalMovieComponent implements OnInit {
   public closeModal(){
     this.activeModal.close();
   }
+  showSuccess() {
+    const messageSuccesfull = this.messages[2].message;
+		this.toastService.show(messageSuccesfull, { classname: 'bg-success text-light', delay: 3000 });
+	}
+
+  showError(error?:string) {
+    const messageError = this.messages[1].message;
+    console.log(messageError);
+
+		this.toastService.show((error)? error : messageError, { classname: 'bg-danger text-light', delay: 3000 });
+	}
 }

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearcherComponent } from 'src/app/components/searcher/searcher.component';
 import { MoviesItemComponent } from './movies-item/movies-item.component';
 import { MoviesComponent } from './movies.component';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 
 @NgModule({
@@ -21,8 +22,8 @@ import { MoviesComponent } from './movies.component';
     CommonModule,
     MoviesRoutingModule,
     ReactiveFormsModule,
-    NgbModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class MoviesModule { }
